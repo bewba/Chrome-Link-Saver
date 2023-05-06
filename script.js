@@ -15,8 +15,31 @@ clearBtn.addEventListener("click", clear);
 saveTab.addEventListener("click", savetheTab);
 clearSomeElements.onclick =  deleteSomeElements;
 
+function filterUncommonElements(checkedElements,mainArray){
+    let i;
+    temp = [];
+    for(i = 0; i < mainArray.length; i+=1){
+        if (!(checkedElements.includes(mainArray[i]))){
+            temp.push(mainArray[i]);
+        }
+    }
+    mainArray = temp;
+    console.log(mainArray);
+    localStorage.setItem("MyLeads",JSON.stringify(mainArray));
+    return mainArray;
+}
+
 function deleteSelectElements(){
-    console.log('hello');
+    let CertainElements = document.getElementsByClassName('selectElements')
+    let i;
+    let ElementstoDelete = [];
+    for(i = 0; i < CertainElements.length; i+= 1){
+        if(CertainElements[i].checked == true){
+            ElementstoDelete.push(CertainElements[i].value);
+        }
+    }
+    console.log("checks = " + ElementstoDelete);
+    myLeads = filterUncommonElements(ElementstoDelete, myLeads);
     clearSomeElements.onclick =  deleteSomeElements;
     clearSomeElements.textContent = "Remove Some Elements!";
     renderLeads(myLeads);   
